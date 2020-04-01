@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Attendee</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<h1>Add a new attendee to the attendees list</h1>
+
+<ul>
+    <li><a href="/">attendees</a></li>
+    <li><a href="/attendees">attendees API</a></li>
+    <li><a href="/new">Add a new attendee</a></li>
+</ul>
+
+<form method="POST" action="/create">
+    <input type="text" name="name" placeholder="Enter name of participant">
+    <input type="text" name="email" placeholder="Enter email of participant">
+    <input type="text" name="image" placeholder="Enter image of participant">
+
+	<button>submit</button>
+</form>
+
+</body>
+</html>
