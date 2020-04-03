@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var mysql = require('mysql');
+var multer  = require('multer');
 
 //you need this to be able to process information sent to a POST route
 var bodyParser = require('body-parser');
@@ -10,7 +11,13 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse application/json
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(bodyParser.json( {type: '*/*' }));
+
+// app.use(multer());
+
+const cors = require('cors');
+app.use(cors())
 
 var path = require("path");
 
@@ -27,15 +34,20 @@ connection.connect(function(err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId);
 })
-router.get('/test', function(req, res){
-    console.log('test page running');
-});
 
 router.get('/attendees', function(req, res){
-  connection.query('SELECT * FROM attendees', function (error, results, fields) {
-    if (error) throw error;
-    res.json(results);
-  });
+    connection.query('SELECT * FROM attendees', function (error, results, fields) {
+      if (error) throw error;
+      res.json(results);
+    });
+});
+
+router.get('/attendees/:id', function(req, res){
+	connection.query('SELECT * FROM attendees WHERE id = ?', [req.params.id],function (error, results, fields) {
+	  if (error) throw error;
+	  
+	  res.json(results[0]);
+	});
 });
 
 router.get('/new', function(req, res){
@@ -43,8 +55,8 @@ router.get('/new', function(req, res){
 });
 
 router.post('/create', function(req, res){
-	console.log(req.body);
-
+    console.log('body parser: ', req.body);
+    //why is req.body undefined?
 	var query = connection.query(
 	  "INSERT INTO attendees SET ?",
 	  req.body,

@@ -1,12 +1,13 @@
-USE raffle_se_db;
+USE raffle_sei_db;
 
 CREATE TABLE attendees (
     id MEDIUMINT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    name VARCHAR(45) NOT NULL,
+    email VARCHAR(45) NOT NULL,
+    company VARCHAR(45) NOT NULL,
     presentDate DATE NULL,
     attended BOOLEAN NULL,
-    raffleG BOOLEAN NULL,
+    rafGroup BOOLEAN NULL,
     winner  BOOLEAN NULL,
     PRIMARY KEY(id)
 );
